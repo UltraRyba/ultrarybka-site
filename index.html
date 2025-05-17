@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ultrarybka 🐱</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Pacifico', cursive;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('https://i.imgur.com/62JlzVP.jpeg');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      color: #fff;
+      text-align: center;
+    }
+
+    .overlay {
+      background-color: rgba(255, 192, 203, 0.7);
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      padding: 60px 20px;
+    }
+
+    h1 {
+      font-size: 4rem;
+      text-shadow: 2px 2px #ff66a3;
+    }
+
+    .about {
+      background: #fff8fcaa;
+      color: #ff66a3;
+      font-size: 1.8rem;
+      padding: 20px;
+      border-radius: 20px;
+      margin: 20px auto;
+      max-width: 600px;
+      border: 2px dashed #ffaadd;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .cat-img {
+      width: 250px;
+      border-radius: 20px;
+      border: 4px solid #fff;
+      box-shadow: 0 0 15px #ff99cc;
+      margin-top: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 10px 20px;
+      background: #ff66a3;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      text-decoration: none;
+      box-shadow: 0 0 10px #ff66a3;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    input {
+      padding: 10px;
+      margin: 10px;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: 1px solid #ffaadd;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <main id="main-content">
+    <div id="home-page">
+      <h1>✿ ultrarybka ✿</h1>
+      <div class="about">
+        ꧁✬◦°⋆⋆°◦. 𝓬𝓪𝓽𝓼 𝓪𝓻𝓮 𝓬𝓾𝓽𝓮 ◦°⋆⋆°◦✬꧂
+      </div>
+      <img src="https://i.imgur.com/3cXwF8l.gif" alt="Cute Cat" class="cat-img" />
+      <br />
+      <a href="#/login" class="btn">Zaloguj się</a>
+    </div>
+
+    <div id="login-page" class="hidden">
+      <h1>Login 🐾</h1>
+      <input id="username" placeholder="Username" /><br />
+      <input id="password" placeholder="Password" type="password" /><br />
+      <button class="btn" onclick="login()">Zaloguj</button>
+    </div>
+
+    <div id="dashboard-page" class="hidden">
+      <h1>Witaj, ultrarybka!</h1>
+      <div class="about">🐈 Witamy w panelu kociego sigma rizzlera 🐈</div>
+      <a class="btn" href="https://github.com/ultrarybka" target="_blank">Zobacz GitHub</a><br><br>
+      <button class="btn" onclick="logout()">Wyloguj się</button>
+    </div>
+  </main>
+
+  <script>
+    const routes = {
+      "/": "home-page",
+      "/login": "login-page",
+      "/dashboard": "dashboard-page"
+    };
+
+    function showPage(page) {
+      Object.values(routes).forEach(id => {
+        document.getElementById(id).classList.add("hidden");
+      });
+      document.getElementById(routes[page]).classList.remove("hidden");
+    }
+
+    function login() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+      if (user === "ultrarybka" && pass === "ultrarybkafriedchicken") {
+        location.hash = "/dashboard";
+      } else {
+        alert("Błędny login lub hasło 😿");
+      }
+    }
+
+    function logout() {
+      location.hash = "/";
+    }
+
+    function checkRoute() {
+      const hash = location.hash.replace("#", "") || "/";
+      if (routes[hash]) {
+        showPage(hash);
+      } else {
+        showPage("/");
+      }
+    }
+
+    window.addEventListener("hashchange", checkRoute);
+    window.addEventListener("load", checkRoute);
+  </script>
+</body>
+</html>
