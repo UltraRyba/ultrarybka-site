@@ -14,16 +14,18 @@
     body {
       margin: 0;
       padding: 0;
-      background-image: url('https://i.imgur.com/62JlzVP.jpeg');
-      background-size: cover;
-      background-attachment: fixed;
-      background-position: center;
+      background: linear-gradient(to bottom right, #ffc0cb, #ffe0f0);
+      overflow-x: hidden;
       color: #fff;
       text-align: center;
     }
 
     .overlay {
-      background-color: rgba(255, 192, 203, 0.7);
+      background-image: url('https://media.giphy.com/media/v6aOjy0Qo1fIA/giphy.gif');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      opacity: 0.2;
       position: fixed;
       inset: 0;
       z-index: 0;
@@ -65,6 +67,18 @@
       margin-top: 20px;
     }
 
+    .floating-cat {
+      position: absolute;
+      width: 100px;
+      z-index: 0;
+      animation: moveCats 20s linear infinite;
+    }
+
+    @keyframes moveCats {
+      0% { top: -100px; left: calc(100% * var(--i)); }
+      100% { top: 110%; left: calc(100% * var(--i)); }
+    }
+
     .btn {
       display: inline-block;
       margin-top: 30px;
@@ -93,6 +107,12 @@
 </head>
 <body>
   <div class="overlay"></div>
+
+  <!-- floating cat gifs -->
+  <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" class="floating-cat" style="--i: 0.1">
+  <img src="https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif" class="floating-cat" style="--i: 0.4">
+  <img src="https://media.giphy.com/media/lJNoBCvQYp7nq/giphy.gif" class="floating-cat" style="--i: 0.7">
+
   <main id="main-content">
     <div id="home-page">
       <h1>✿ ultrarybka ✿</h1>
@@ -119,6 +139,8 @@
     </div>
   </main>
 
+  <audio id="meowSound" src="https://www.fesliyanstudios.com/play-mp3/6963" preload="auto"></audio>
+
   <script>
     const routes = {
       "/": "home-page",
@@ -137,6 +159,7 @@
       const user = document.getElementById("username").value;
       const pass = document.getElementById("password").value;
       if (user === "ultrarybka" && pass === "ultrarybkafriedchicken") {
+        document.getElementById("meowSound").play();
         location.hash = "/dashboard";
       } else {
         alert("Błędny login lub hasło 😿");
